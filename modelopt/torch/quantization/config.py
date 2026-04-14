@@ -669,6 +669,7 @@ NVFP4_OMLP_ONLY_CFG = {
 # Self-Attn: 3, 7, 11, 15, 19, 23, 27, 31, 35, 39
 _qwen35_35b_exclude_modules = [
     "lm_head",
+    "*.mlp.shared_expert.*",
     "*.mlp.shared_expert",
     "model.language_model.layers.0.linear_attn",
     "model.language_model.layers.1.linear_attn",
