@@ -670,49 +670,169 @@ NVFP4_OMLP_ONLY_CFG = {
 _qwen35_35b_exclude_modules = [
     "lm_head",
     "*.mlp.shared_expert.*",
-    "*.mlp.shared_expert",
-    "model.language_model.layers.0.linear_attn",
-    "model.language_model.layers.1.linear_attn",
-    "model.language_model.layers.2.linear_attn",
-    "model.language_model.layers.4.linear_attn",
-    "model.language_model.layers.5.linear_attn",
-    "model.language_model.layers.6.linear_attn",
-    "model.language_model.layers.8.linear_attn",
-    "model.language_model.layers.9.linear_attn",
-    "model.language_model.layers.10.linear_attn",
-    "model.language_model.layers.12.linear_attn",
-    "model.language_model.layers.13.linear_attn",
-    "model.language_model.layers.14.linear_attn",
-    "model.language_model.layers.16.linear_attn",
-    "model.language_model.layers.17.linear_attn",
-    "model.language_model.layers.18.linear_attn",
-    "model.language_model.layers.20.linear_attn",
-    "model.language_model.layers.21.linear_attn",
-    "model.language_model.layers.22.linear_attn",
-    "model.language_model.layers.24.linear_attn",
-    "model.language_model.layers.25.linear_attn",
-    "model.language_model.layers.26.linear_attn",
-    "model.language_model.layers.28.linear_attn",
-    "model.language_model.layers.29.linear_attn",
-    "model.language_model.layers.30.linear_attn",
-    "model.language_model.layers.32.linear_attn",
-    "model.language_model.layers.33.linear_attn",
-    "model.language_model.layers.34.linear_attn",
-    "model.language_model.layers.36.linear_attn",
-    "model.language_model.layers.37.linear_attn",
-    "model.language_model.layers.38.linear_attn",
-    "model.language_model.layers.3.self_attn",
-    "model.language_model.layers.7.self_attn",
-    "model.language_model.layers.11.self_attn",
-    "model.language_model.layers.15.self_attn",
-    "model.language_model.layers.19.self_attn",
-    "model.language_model.layers.23.self_attn",
-    "model.language_model.layers.27.self_attn",
-    "model.language_model.layers.31.self_attn",
-    "model.language_model.layers.35.self_attn",
-    "model.language_model.layers.39.self_attn",
-    "model.visual",
-    "mtp.layers.0",
+    # Layer 0 (DeltaNet)
+    "model.language_model.layers.0.linear_attn*",
+    "model.language_model.layers.0.mlp.shared_expert*",
+    "model.language_model.layers.0.mlp.shared_expert_gate",
+    # Layer 1 (DeltaNet)
+    "model.language_model.layers.1.linear_attn*",
+    "model.language_model.layers.1.mlp.shared_expert*",
+    "model.language_model.layers.1.mlp.shared_expert_gate",
+    # Layer 2 (DeltaNet)
+    "model.language_model.layers.2.linear_attn*",
+    "model.language_model.layers.2.mlp.shared_expert*",
+    "model.language_model.layers.2.mlp.shared_expert_gate",
+    # Layer 3 (Self-Attn)
+    "model.language_model.layers.3.self_attn*",
+    "model.language_model.layers.3.mlp.shared_expert*",
+    "model.language_model.layers.3.mlp.shared_expert_gate",
+    # Layer 4 (DeltaNet)
+    "model.language_model.layers.4.linear_attn*",
+    "model.language_model.layers.4.mlp.shared_expert*",
+    "model.language_model.layers.4.mlp.shared_expert_gate",
+    # Layer 5 (DeltaNet)
+    "model.language_model.layers.5.linear_attn*",
+    "model.language_model.layers.5.mlp.shared_expert*",
+    "model.language_model.layers.5.mlp.shared_expert_gate",
+    # Layer 6 (DeltaNet)
+    "model.language_model.layers.6.linear_attn*",
+    "model.language_model.layers.6.mlp.shared_expert*",
+    "model.language_model.layers.6.mlp.shared_expert_gate",
+    # Layer 7 (Self-Attn)
+    "model.language_model.layers.7.self_attn*",
+    "model.language_model.layers.7.mlp.shared_expert*",
+    "model.language_model.layers.7.mlp.shared_expert_gate",
+    # Layer 8 (DeltaNet)
+    "model.language_model.layers.8.linear_attn*",
+    "model.language_model.layers.8.mlp.shared_expert*",
+    "model.language_model.layers.8.mlp.shared_expert_gate",
+    # Layer 9 (DeltaNet)
+    "model.language_model.layers.9.linear_attn*",
+    "model.language_model.layers.9.mlp.shared_expert*",
+    "model.language_model.layers.9.mlp.shared_expert_gate",
+    # Layer 10 (DeltaNet)
+    "model.language_model.layers.10.linear_attn*",
+    "model.language_model.layers.10.mlp.shared_expert*",
+    "model.language_model.layers.10.mlp.shared_expert_gate",
+    # Layer 11 (Self-Attn)
+    "model.language_model.layers.11.self_attn*",
+    "model.language_model.layers.11.mlp.shared_expert*",
+    "model.language_model.layers.11.mlp.shared_expert_gate",
+    # Layer 12 (DeltaNet)
+    "model.language_model.layers.12.linear_attn*",
+    "model.language_model.layers.12.mlp.shared_expert*",
+    "model.language_model.layers.12.mlp.shared_expert_gate",
+    # Layer 13 (DeltaNet)
+    "model.language_model.layers.13.linear_attn*",
+    "model.language_model.layers.13.mlp.shared_expert*",
+    "model.language_model.layers.13.mlp.shared_expert_gate",
+    # Layer 14 (DeltaNet)
+    "model.language_model.layers.14.linear_attn*",
+    "model.language_model.layers.14.mlp.shared_expert*",
+    "model.language_model.layers.14.mlp.shared_expert_gate",
+    # Layer 15 (Self-Attn)
+    "model.language_model.layers.15.self_attn*",
+    "model.language_model.layers.15.mlp.shared_expert*",
+    "model.language_model.layers.15.mlp.shared_expert_gate",
+    # Layer 16 (DeltaNet)
+    "model.language_model.layers.16.linear_attn*",
+    "model.language_model.layers.16.mlp.shared_expert*",
+    "model.language_model.layers.16.mlp.shared_expert_gate",
+    # Layer 17 (DeltaNet)
+    "model.language_model.layers.17.linear_attn*",
+    "model.language_model.layers.17.mlp.shared_expert*",
+    "model.language_model.layers.17.mlp.shared_expert_gate",
+    # Layer 18 (DeltaNet)
+    "model.language_model.layers.18.linear_attn*",
+    "model.language_model.layers.18.mlp.shared_expert*",
+    "model.language_model.layers.18.mlp.shared_expert_gate",
+    # Layer 19 (Self-Attn)
+    "model.language_model.layers.19.self_attn*",
+    "model.language_model.layers.19.mlp.shared_expert*",
+    "model.language_model.layers.19.mlp.shared_expert_gate",
+    # Layer 20 (DeltaNet)
+    "model.language_model.layers.20.linear_attn*",
+    "model.language_model.layers.20.mlp.shared_expert*",
+    "model.language_model.layers.20.mlp.shared_expert_gate",
+    # Layer 21 (DeltaNet)
+    "model.language_model.layers.21.linear_attn*",
+    "model.language_model.layers.21.mlp.shared_expert*",
+    "model.language_model.layers.21.mlp.shared_expert_gate",
+    # Layer 22 (DeltaNet)
+    "model.language_model.layers.22.linear_attn*",
+    "model.language_model.layers.22.mlp.shared_expert*",
+    "model.language_model.layers.22.mlp.shared_expert_gate",
+    # Layer 23 (Self-Attn)
+    "model.language_model.layers.23.self_attn*",
+    "model.language_model.layers.23.mlp.shared_expert*",
+    "model.language_model.layers.23.mlp.shared_expert_gate",
+    # Layer 24 (DeltaNet)
+    "model.language_model.layers.24.linear_attn*",
+    "model.language_model.layers.24.mlp.shared_expert*",
+    "model.language_model.layers.24.mlp.shared_expert_gate",
+    # Layer 25 (DeltaNet)
+    "model.language_model.layers.25.linear_attn*",
+    "model.language_model.layers.25.mlp.shared_expert*",
+    "model.language_model.layers.25.mlp.shared_expert_gate",
+    # Layer 26 (DeltaNet)
+    "model.language_model.layers.26.linear_attn*",
+    "model.language_model.layers.26.mlp.shared_expert*",
+    "model.language_model.layers.26.mlp.shared_expert_gate",
+    # Layer 27 (Self-Attn)
+    "model.language_model.layers.27.self_attn*",
+    "model.language_model.layers.27.mlp.shared_expert*",
+    "model.language_model.layers.27.mlp.shared_expert_gate",
+    # Layer 28 (DeltaNet)
+    "model.language_model.layers.28.linear_attn*",
+    "model.language_model.layers.28.mlp.shared_expert*",
+    "model.language_model.layers.28.mlp.shared_expert_gate",
+    # Layer 29 (DeltaNet)
+    "model.language_model.layers.29.linear_attn*",
+    "model.language_model.layers.29.mlp.shared_expert*",
+    "model.language_model.layers.29.mlp.shared_expert_gate",
+    # Layer 30 (DeltaNet)
+    "model.language_model.layers.30.linear_attn*",
+    "model.language_model.layers.30.mlp.shared_expert*",
+    "model.language_model.layers.30.mlp.shared_expert_gate",
+    # Layer 31 (Self-Attn)
+    "model.language_model.layers.31.self_attn*",
+    "model.language_model.layers.31.mlp.shared_expert*",
+    "model.language_model.layers.31.mlp.shared_expert_gate",
+    # Layer 32 (DeltaNet)
+    "model.language_model.layers.32.linear_attn*",
+    "model.language_model.layers.32.mlp.shared_expert*",
+    "model.language_model.layers.32.mlp.shared_expert_gate",
+    # Layer 33 (DeltaNet)
+    "model.language_model.layers.33.linear_attn*",
+    "model.language_model.layers.33.mlp.shared_expert*",
+    "model.language_model.layers.33.mlp.shared_expert_gate",
+    # Layer 34 (DeltaNet)
+    "model.language_model.layers.34.linear_attn*",
+    "model.language_model.layers.34.mlp.shared_expert*",
+    "model.language_model.layers.34.mlp.shared_expert_gate",
+    # Layer 35 (Self-Attn)
+    "model.language_model.layers.35.self_attn*",
+    "model.language_model.layers.35.mlp.shared_expert*",
+    "model.language_model.layers.35.mlp.shared_expert_gate",
+    # Layer 36 (DeltaNet)
+    "model.language_model.layers.36.linear_attn*",
+    "model.language_model.layers.36.mlp.shared_expert*",
+    "model.language_model.layers.36.mlp.shared_expert_gate",
+    # Layer 37 (DeltaNet)
+    "model.language_model.layers.37.linear_attn*",
+    "model.language_model.layers.37.mlp.shared_expert*",
+    "model.language_model.layers.37.mlp.shared_expert_gate",
+    # Layer 38 (DeltaNet)
+    "model.language_model.layers.38.linear_attn*",
+    "model.language_model.layers.38.mlp.shared_expert*",
+    "model.language_model.layers.38.mlp.shared_expert_gate",
+    # Layer 39 (Self-Attn)
+    "model.language_model.layers.39.self_attn*",
+    "model.language_model.layers.39.mlp.shared_expert*",
+    "model.language_model.layers.39.mlp.shared_expert_gate",
+    # Vision & MTP
+    "model.visual*",
+    "mtp.layers.0*",
 ]
 
 _nvfp4_qwen35_35b_quant_cfg = {
@@ -720,7 +840,7 @@ _nvfp4_qwen35_35b_quant_cfg = {
     "*mlp*input_quantizer": _nvfp4_quantizer,
     "*block_sparse_moe*weight_quantizer": _nvfp4_quantizer,
     "*block_sparse_moe*input_quantizer": _nvfp4_quantizer,
-    **{f"{module}*": {"enable": False} for module in _qwen35_35b_exclude_modules},
+    **{module: {"enable": False} for module in _qwen35_35b_exclude_modules},
     **_default_disabled_quantizer_cfg,
 }
 
