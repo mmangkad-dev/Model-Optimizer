@@ -91,6 +91,7 @@ QUANT_CFG_CHOICES: dict[str, dict[str, Any]] = {
     "nvfp4_mlp_only": mtq.NVFP4_MLP_ONLY_CFG,
     "nvfp4_omlp_only": mtq.NVFP4_OMLP_ONLY_CFG,
     "nvfp4_svdquant": mtq.NVFP4_SVDQUANT_DEFAULT_CFG,
+    "nvfp4_qwen35_35b": mtq.NVFP4_QWEN35_35B_CFG,
     "mxfp8": mtq.MXFP8_DEFAULT_CFG,
 }
 
@@ -256,6 +257,7 @@ def auto_quantize(
             "w4a8_mxfp4_fp8",
             "nvfp4_mlp_only",
             "nvfp4_omlp_only",
+            "nvfp4_qwen35_35b",
             "mxfp8",
         ]
         for args.qformat in qformat_list

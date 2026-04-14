@@ -658,6 +658,76 @@ NVFP4_OMLP_ONLY_CFG = {
     "algorithm": "max",
 }
 
+# Qwen3.5-35B-A3B specific NVFP4 config
+# Mirrors the official Qwen3.5-397B-A17B quantization strategy:
+# - Quantizes ONLY routed experts (MoE experts) to NVFP4
+# - Excludes all attention mechanisms (linear_attn and self_attn)
+# - Excludes shared experts and their gates
+# - Excludes vision encoder and MTP layers
+# Architecture: 10 × (3× DeltaNet + 1× Attn) = 40 layers
+# DeltaNet: 0,1,2, 4,5,6, 8,9,10, 12,13,14, 16,17,18, 20,21,22, 24,25,26, 28,29,30, 32,33,34, 36,37,38
+# Self-Attn: 3, 7, 11, 15, 19, 23, 27, 31, 35, 39
+_qwen35_35b_exclude_modules = [
+    "lm_head",
+    "*.mlp.shared_expert.*",
+    "model.language_model.layers.0.linear_attn*",
+    "model.language_model.layers.1.linear_attn*",
+    "model.language_model.layers.2.linear_attn*",
+    "model.language_model.layers.4.linear_attn*",
+    "model.language_model.layers.5.linear_attn*",
+    "model.language_model.layers.6.linear_attn*",
+    "model.language_model.layers.8.linear_attn*",
+    "model.language_model.layers.9.linear_attn*",
+    "model.language_model.layers.10.linear_attn*",
+    "model.language_model.layers.12.linear_attn*",
+    "model.language_model.layers.13.linear_attn*",
+    "model.language_model.layers.14.linear_attn*",
+    "model.language_model.layers.16.linear_attn*",
+    "model.language_model.layers.17.linear_attn*",
+    "model.language_model.layers.18.linear_attn*",
+    "model.language_model.layers.20.linear_attn*",
+    "model.language_model.layers.21.linear_attn*",
+    "model.language_model.layers.22.linear_attn*",
+    "model.language_model.layers.24.linear_attn*",
+    "model.language_model.layers.25.linear_attn*",
+    "model.language_model.layers.26.linear_attn*",
+    "model.language_model.layers.28.linear_attn*",
+    "model.language_model.layers.29.linear_attn*",
+    "model.language_model.layers.30.linear_attn*",
+    "model.language_model.layers.32.linear_attn*",
+    "model.language_model.layers.33.linear_attn*",
+    "model.language_model.layers.34.linear_attn*",
+    "model.language_model.layers.36.linear_attn*",
+    "model.language_model.layers.37.linear_attn*",
+    "model.language_model.layers.38.linear_attn*",
+    "model.language_model.layers.3.self_attn*",
+    "model.language_model.layers.7.self_attn*",
+    "model.language_model.layers.11.self_attn*",
+    "model.language_model.layers.15.self_attn*",
+    "model.language_model.layers.19.self_attn*",
+    "model.language_model.layers.23.self_attn*",
+    "model.language_model.layers.27.self_attn*",
+    "model.language_model.layers.31.self_attn*",
+    "model.language_model.layers.35.self_attn*",
+    "model.language_model.layers.39.self_attn*",
+    "model.visual*",
+    "mtp.layers.0*",
+]
+
+_nvfp4_qwen35_35b_quant_cfg = {
+    "*mlp*weight_quantizer": _nvfp4_quantizer,
+    "*mlp*input_quantizer": _nvfp4_quantizer,
+    "*block_sparse_moe*weight_quantizer": _nvfp4_quantizer,
+    "*block_sparse_moe*input_quantizer": _nvfp4_quantizer,
+    **{f"{module}*": {"enable": False} for module in _qwen35_35b_exclude_modules},
+    **_default_disabled_quantizer_cfg,
+}
+
+NVFP4_QWEN35_35B_CFG = {
+    "quant_cfg": _nvfp4_qwen35_35b_quant_cfg,
+    "algorithm": "max",
+}
+
 choices: set[str] = {
     "FP8_2D_BLOCKWISE_WEIGHT_ONLY_CFG",
     "FP8_AFFINE_KV_CFG",
@@ -688,6 +758,7 @@ choices: set[str] = {
     "MXFP4_MLP_WEIGHT_ONLY_CFG",
     "NVFP4_MLP_ONLY_CFG",
     "NVFP4_OMLP_ONLY_CFG",
+    "NVFP4_QWEN35_35B_CFG",
     "MAMBA_MOE_NVFP4_CONSERVATIVE_CFG",
     "MAMBA_MOE_NVFP4_AGGRESSIVE_CFG",
     "MAMBA_MOE_FP8_CONSERVATIVE_CFG",

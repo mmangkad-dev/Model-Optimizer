@@ -52,6 +52,7 @@ QUANT_CFG_CHOICES: dict[str, dict[str, Any]] = {
     "nvfp4_awq": mtq.NVFP4_AWQ_LITE_CFG,
     "w4a8_mxfp4_fp8": mtq.W4A8_MXFP4_FP8_CFG,
     "nvfp4_mlp_only": mtq.NVFP4_MLP_ONLY_CFG,
+    "nvfp4_qwen35_35b": mtq.NVFP4_QWEN35_35B_CFG,
 }
 
 KV_QUANT_CFG_CHOICES = {
