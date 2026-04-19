@@ -832,7 +832,7 @@ _qwen35_35b_exclude_modules = [
     "model.language_model.layers.39.mlp.shared_expert_gate",
     # Vision & MTP
     "model.visual*",
-    "mtp.layers.0*",
+    "*mtp*",
 ]
 
 _nvfp4_qwen35_35b_quant_cfg = {
@@ -1055,7 +1055,7 @@ _qwen35_122b_exclude_modules = [
     "model.language_model.layers.47.mlp.shared_expert_gate",
     # Vision & MTP
     "model.visual*",
-    "mtp.layers.0*",
+    "*mtp*",
 ]
 
 _nvfp4_qwen35_122b_quant_cfg = {
@@ -1326,7 +1326,7 @@ _qwen35_397b_exclude_modules = [
     "model.language_model.layers.59.mlp.shared_expert_gate",
     # Vision & MTP
     "model.visual*",
-    "mtp.layers.0*",
+    "*mtp*",
 ]
 
 _nvfp4_qwen35_397b_quant_cfg = {
