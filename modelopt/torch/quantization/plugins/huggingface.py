@@ -852,7 +852,6 @@ class _QuantFusedExperts(_QuantFunctionalMixin):
 
     * ``gate_up_proj``: 3-D ``nn.Parameter`` of shape ``(num_experts, 2*intermediate_dim, hidden_dim)``
     * ``down_proj``:    3-D ``nn.Parameter`` of shape ``(num_experts, hidden_dim, intermediate_dim)``
-    * ``act_fn``:       activation function applied between gate/up and down projections
     * ``forward``:      calls ``F.linear`` exactly twice per expert (gate_up then down)
 
     Per-expert quantization is achieved by intercepting ``F.linear`` and recovering
@@ -862,7 +861,7 @@ class _QuantFusedExperts(_QuantFunctionalMixin):
     the shared input quantization scale used by downstream inference frameworks.
 
     Verified compatible models: Mixtral, Qwen2-MoE, Qwen3-MoE, Qwen3.5-MoE,
-    DeepSeek-V3, Jamba, OLMoE.
+    DeepSeek-V3, Jamba, OLMoE, MiniMax-M3.
 
     Limitation: only works when ``experts_implementation="eager"`` (default).
     ``batched_mm`` / ``grouped_mm`` backends use ``torch.bmm`` /
@@ -1470,23 +1469,35 @@ def _is_fused_experts_module(module):
     """Check if a module is a fused MoE expert container compatible with _QuantFusedExperts.
 
     Detects the standardized HuggingFace transformers 5.0+ fused expert pattern:
-    ``gate_up_proj`` (3-D parameter), ``down_proj`` (3-D parameter), ``num_experts``,
-    and ``act_fn``.  Matches ``MixtralExperts``, ``Qwen2MoeExperts``,
+    ``gate_up_proj`` (3-D parameter), ``down_proj`` (3-D parameter), and
+    ``num_experts``.  Matches ``MixtralExperts``, ``Qwen2MoeExperts``,
     ``Qwen3MoeExperts``, ``Qwen3_5MoeExperts``, ``DeepseekV3NaiveMoe``,
-    ``JambaExperts``, ``OlmoeExperts``, etc.
+    ``JambaExperts``, ``OlmoeExperts``, ``MiniMaxM3VLExperts``, etc.
+
+    ``act_fn`` is intentionally not required: some fused expert containers apply
+    their gate activation inline. ``_QuantFusedExperts`` intercepts only
+    ``F.linear`` calls, so the activation implementation is irrelevant here.
 
     Returns ``False`` for non-standard layouts (DBRX, GptOss, GraniteMoE,
     Llama4TextExperts) which have their own explicit registrations.
     """
     if not hasattr(module, "gate_up_proj") or not hasattr(module, "down_proj"):
         return False
-    if not hasattr(module, "num_experts") or not hasattr(module, "act_fn"):
+    if not hasattr(module, "num_experts"):
         return False
     gate_up = getattr(module, "gate_up_proj")
     down = getattr(module, "down_proj")
     if not isinstance(gate_up, (nn.Parameter, Tensor)) or gate_up.dim() != 3:
         return False
-    return isinstance(down, (nn.Parameter, Tensor)) and down.dim() == 3
+    if not isinstance(down, (nn.Parameter, Tensor)) or down.dim() != 3:
+        return False
+    num_experts = getattr(module, "num_experts")
+    return (
+        gate_up.shape[0] == num_experts
+        and down.shape[0] == num_experts
+        and gate_up.shape[1] == 2 * down.shape[2]
+        and gate_up.shape[2] == down.shape[1]
+    )
 
 
 def register_fused_experts_on_the_fly(model):
