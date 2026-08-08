@@ -16,23 +16,19 @@
 imports:
   base_disable_all: configs/ptq/units/base_disable_all
   default_disabled_quantizers: configs/ptq/units/default_disabled_quantizers
-  kv_fp8: configs/ptq/units/kv_fp8
+  kv_fp8_cast: configs/ptq/units/kv_fp8_cast
   mxfp8: configs/numerics/mxfp8
   nvfp4: configs/numerics/nvfp4
-  nvfp4_static: configs/numerics/nvfp4_static
 
 metadata:
   recipe_type: ptq
   description: >-
-    MXFP8 language-model linears and shared experts with MSE-calibrated NVFP4
-    routed experts for Hugging Face `qwen3_5_moe` models. The vision branch,
-    routers, lm_head, and MTP block remain unquantized; the KV cache uses FP8.
+    MXFP8 language-model linears and shared experts with dynamic NVFP4 routed
+    experts for Hugging Face `qwen3_5_moe` models. The vision branch, routers,
+    lm_head, and MTP block remain unquantized; the KV cache uses FP8 cast.
 
 quantize:
-  algorithm:
-    method: mse
-    fp8_scale_sweep: true
-    layerwise: false
+  algorithm: max
   quant_cfg:
     - $import: base_disable_all
     - quantizer_name: "*weight_quantizer"
@@ -43,11 +39,11 @@ quantize:
         $import: mxfp8
     - quantizer_name: "*language_model*mlp.experts.*weight_quantizer"
       cfg:
-        $import: nvfp4_static
+        $import: nvfp4
     - quantizer_name: "*language_model*mlp.experts.*input_quantizer"
       cfg:
         $import: nvfp4
-    - $import: kv_fp8
+    - $import: kv_fp8_cast
     - $import: default_disabled_quantizers
     - quantizer_name: "*mtp*"
       enable: false
